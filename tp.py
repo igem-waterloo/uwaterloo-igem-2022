@@ -1,3 +1,5 @@
+import math
+
 #METABOLITE NOMENCLATURE
 
 #[GAP]=x(1)          D-Glyceraldehyde 3-Phosphate
@@ -93,6 +95,69 @@ z=100               #Factor to account for the actual concentration of (+)-menth
 w=0.05              #Factor to account for the actual concentration of (+)-pulegone in secretory cells of glandular trichomes
 
 #FIRST PEAK OF ENZYME ACTIVITY
+#f(x) = Comp * a * exp((-(t-b).^2)/(2*(c)^2))
+
+#where   Comp = Factor to adjust for the volume density of the compartment in which a 
+                #particular enzyme is active [Dimensionless]
+#        a    = Factor defining the height of the Gaussian peak for enzyme activity
+                #[µM]
+#       t    = Time [s]
+#       b    = Factor defining the position of the center of the Gaussian peak for
+                #enzyme activity [s]
+#        c    = Factor defining the width of the Gaussian peak for enzyme activity at
+                #half maximum [s]
+
+
+b1=1296000;   #Defines the position of the center of the Gaussian peak for enzyme
+              # activity.
+              #% Relevant to the following enzyme activities: LS, L3H, IsoDH, IsoR, IsoI, 
+              #MFS, PR
+
+c1=800000;    # Defines the width of the Gaussian peak for enzyme activity at half 
+            # maximum.    
+              #Relevant to the following enzyme activities: LS, L3H, IsoDH, IsoR, IsoI, 
+               # MFS, PR
+  
+b5=1800000;   #Defines the position of the center of the Gaussian peak for enzyme 
+            # activity.
+              # Relevant to the following enzyme activities: MMR, MNR
+
+c5=900000;    # Defines the width of the Gaussian peak for enzyme activity at half
+            # maximum.     
+              # Relevant to the following enzyme activities: MMR, MNR     
+              # 
+E1=(0.139)*0.03*math.exp((-(t-b1)^2)/(2*(c1)^2))       # DXS
+E2=(0.139)*0.0225*math.exp((-(t-b1)^2)/(2*(c1)^2))    # DXR
+E3=(0.139)*0.5*math.exp((-(t-b1)^2)/(2*(c1)^2))     # MCT 
+E4=(0.139)*0.0225*math.exp((-(t-b1)^2)/(2*(c1)^2))     # CMK 
+E5=(0.139)*0.5*math.exp((-(t-b1)^2)/(2*(c1)^2))        # MECPS 
+E6=(0.139)*0.5*math.exp((-(t-b1)^2)/(2*(c1)^2))       # HDS  
+E7a=(0.139)*0.2*math.exp((-(t-b1)^2)/(2*(c1)^2))      # HDR (product: DMAPP)
+E7b=(0.139)*0.04*math.exp((-(t-b1)^2)/(2*(c1)^2))     # HDR (product: IPP)
+E8=(0.139)*0.3*math.exp((-(t-b1)^2)/(2*(c1)^2))       # IPPI 
+E9=(0.139)*0.1*math.exp((-(t-b1)^2)/(2*(c1)^2))       # GPPS
+E10= (0.139)*0.017*math.exp((-(t-b1)^2)/(2*(c1)^2))   # LS    
+E11= (0.365)*0.003*math.exp((-(t-b1)^2)/(2*(c1)^2))   # L3H 
+E12= (0.044)*10*math.exp((-(t-b1)^2)/(2*(c1)^2))     # IsoDH  
+E13= (0.204)*0.34*math.exp((-(t-b1)^2)/((2*c1)^2))     # IsoR  
+E14= (0.204)*0.34*math.exp((-(t-b1)^2)/((2*c1)^2))    # IsoI  
+E15= (0.365)*0.00007*math.exp((-(t-b1)^2)/(2*(c1)^2))  # MFS  
+E16a=(0.204)*0.0015*math.exp((-(t-b1)^2)/(2*(c1)^2))  # PR  (product: (-)-menthone)
+E16b=(0.204)*0.00015*math.exp((-(t-b1)^2)/(2*(c1)^2))  # PR  (product: (+)-isomenthone)
+E17a=(0.204)*0.0011*math.exp((-(t-b5)^2)/(2*(c5)^2))  # MMR (product: (-)-menthol)
+E17b=(0.204)*0.0011*math.exp((-(t-b5)^2)/(2*(c5)^2))  # MMR (product: (+)-neoisomenthol)
+E18a=(0.204)*0.00001*math.exp((-(t-b5)^2)/(2*(c5)^2))  # MNR (product: (+)-neomenthol)
+E18b=(0.204)*0.00001*math.exp((-(t-b5)^2)/(2*(c5)^2)) # MNR (product: (+)-isomenthol)
+                  
+# The model also takes into account that the glandular trichome density (GN) changes over time.  This behavior is approximated using a logistic function:
+
+c=5*10^5;    #  parameter approximating slope of exponential phase of sigmoid curve
+k=1/8*10^4;  #  parameter approximating shape of sigmoid curve
+
+GN = 1+ 1/(1+c*math.exp(-k*t)); # at day 15, gland number is 86.7 % of total gland number at
+                           # day 30
+
+
 
 #SPECIES EQUATION
 
