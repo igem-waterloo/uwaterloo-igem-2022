@@ -13,11 +13,11 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     Parameters
     ----------
     y : Array
-        Initial conditions
+        Initial concentration conditions
     k : Array
         Reaction rates
-    s_0 : String
-        Dimension or dimensionless type
+    s_0 : float
+        Initial value of pyruvate concentration for dimensionless system
     ep : Float
         Small dimensionless parameter epsilon
     dim: String
@@ -55,7 +55,7 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     k6 = k[6] # k6 saccharomyces cerevisiae
     k7 = k[7] # k7 saccharomyces cerevisiae
         
-    
+    # Define the dimensionless parameters
     k8 = k[8] # k_1^M saccharomyces cerevisiae
     k9 = k[9] # k_1^i saccharomyces cerevisiae
     k10 = k[10] # k_2^M enterococcus faecalis
@@ -72,7 +72,7 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     # Define the reactions
     if dim == "dim":
         # Re-define the initial value of pyruvate concentration and dimensionless parameter
-        s0 = 1
+        s_0 = 1
         ep = 1
     # If not a dimension or dimensionless system raise ValueError
     elif dim != "non-dim":
