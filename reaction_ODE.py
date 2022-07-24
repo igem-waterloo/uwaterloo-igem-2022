@@ -78,7 +78,7 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     elif dim != "non-dim":
         raise ValueError("Unexpected type. Cannot proceed")
     
-    
+    # The following correspond to the ODE's (equations 2 in the paper) - dimensional system
     r1 = s1 / (s1 + k8 + s1 * s2 / k9)
     r2 = k2 * s2 / (s2 + k10)
     r_2 = k2 * s3 / (s3 + k10)
@@ -104,7 +104,7 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     else:
         raise ValueError("Unexpected type. Cannot proceed")
     
-    # The following correspond to the ODE's (equations 3 in the paper)
+    # The following correspond to the ODE's (equations 3 in the paper) - dimensionless system
     dy[1] = r1 - r2 + r_2 - rA
     dy[2] = r2 - r_2 - r3
     dy[3] = r3 - r4
