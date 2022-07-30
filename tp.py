@@ -1,19 +1,20 @@
 import math
 import numpy as np
 
+def terpene_precursors(x: np.array, t: np.array) -> np.array:
 #METABOLITE NOMENCLATURE
 
-#[GAP]=x[0]          D-Glyceraldehyde 3-Phosphate
-#[Pyr]=x[1]          Pyruvate
-#[DOXP]=x[2]         1-Deoxy-D-xylulose 5-phosphate
+#[GAP]=x[0]          D-Glyceraldehyde 3-Phosphate (G3P) 🚨
+#[Pyr]=x[1]          Pyruvate 🚨
+#[DOXP]=x[2]         1-Deoxy-D-xylulose 5-phosphate (DXS)🚨
 #[ME4P]=x[3]         2-C-Methyl-D-erythritol-4-phosphate
-#[CDPME]=x[4]        4-(Cytidine 5'-diphospho)-2-C-methyl-D-erythritol
+#[CDPME]=x[4]        4-(Cytidine 5'-diphospho)-2-C-methyl-D-erythritol 🚨 (CDP-ME is an enzyme in MEP)
 #[CDPME2P]=x[5]      2-Phospho-4-(cytidine 5'-diphospho)-2-C-methyl-D-erythritol
-#[MEcPP]=x[6]        2-C-Methyl-D-erythritol-2,4-cyclodiphosphate
-#[HMBPP]=x[7]        1-Hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate
-#[DMAPP]=x[8]        Dimethylallyl-pyrophosphate
-#[IPP]=x[9]         Isopentenyl diphosphate
-#[GPP]=x[10]         Geranyl diphosphate
+#[MEcPP]=x[6]        2-C-Methyl-D-erythritol-2,4-cyclodiphosphate (MEcPP) 🚨 
+#[HMBPP]=x[7]        1-Hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate(HMB-PP)🚨
+#[DMAPP]=x[8]        Dimethylallyl-pyrophosphate (DMAPP) 🚨
+#[IPP]=x[9]         Isopentenyl diphosphate (IPP) 🚨
+#[GPP]=x[10]         Geranyl diphosphate (Geranyl diphosphate) 🚨
 #[LIM]=x[11]         (-)-Limonene
 #[IPPol]=x[12]       (-)-trans-Isopiperitenol
 #[IPPone]=x[13]      (-)-Isopiperitenone
@@ -236,6 +237,4 @@ else:  # when t>= 1296000  (patterns of enzymes from 15 - 40 days after leaf ini
       GN*(kc18b*E18b*x[17]/(x[17]+KM18b));                             # Variation of IMol
       GN*(kc17b*E17b*x[17]/(x[17]+KM17b))]                            # Variation of NIMol
         
-    
-
-
+    return xdot
