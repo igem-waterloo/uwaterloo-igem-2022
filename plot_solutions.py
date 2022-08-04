@@ -2,7 +2,7 @@ import numpy as np
 from datetime import time
 import matplotlib.pyplot as plt
 
-[T,Y,k,ep,pyruvate,Tmax] = Full_dynamics
+T,Y,k,ep,pyruvate,Tmax = Full_dynamics
 
 SeaGreen_l = [124,205,124]/255
 SeaGreen_d = [84,139,84]/255
@@ -23,7 +23,7 @@ Col_l = [SeaGreen_lSteelBlue_lRed_lChoc_lPink_l]
 Col_d = [SeaGreen_dSteelBlue_dRed_dChoc_dPink_d]
 
 start = time.time
-[S,t_long,S_long,S1_med] = asymptotic_solutions(T,k,ep)
+S,t_long,S_long,S1_med = asymptotic_solutions(T,k,ep)
 print(time.time-start)
 
 # size(S)
@@ -32,72 +32,60 @@ print(time.time-start)
 # S2 = S(2,:)
 # S3 = S(3,:)
 # S4 = S(4,:)
-​
-if pyruvate == 'finite':
-        fig, ax = plt.subplots(1)
-        for j in range(1,4):
-            ax.plot(T,Y(:,j),'Color',Col_l(j,:),'LineWidth',3, label=f'S{j}')
-            ax.set_yscale('log')
-            ax.set_xscale('log')
 
-        ax.set_xlim(1e-5, Tmax)
-        ax.set_ylim(1e-20, 1)
-        plt.legend(loc='best')
+if pyruvate == 'finite':
+    fig, ax = plt.subplots()
+    for j in range(4):
+        ax.plot(T,Y[:,j], color=Col_l[j,:],linewidth=3, label=f'S{j+1}')
+        ax.plot(T,S[:,j],'--', color=Col_d[j,:],linewidth=3)
+
+    ax.set_yscale('log')
+    ax.set_xscale('log')
+    ax.set_xlim(1e-5, Tmax)
+    ax.set_ylim(1e-20, 1)
+    plt.legend(loc='best')
         
-        for j in range(1,4):
-            ax.plot(T,S[:,j],'--','Color',Col_d[j,:],'LineWidth',3)
+    fig.show()
+
+    fig, ax = plt.subplots()
+    for j in range(4):
+        ax.plot(T,Y[:,j + 4], color=Col_l[j,:],linewidth=3)
+        ax.plot(T,S[:,j + 4],'--', color=Col_d[j,:],linewidth=3)
+
+    
+    ax.set_yscale('log')
+    ax.set_xscale('log')
+    ax.set_xlim(1e-5, Tmax)
+    ax.set_ylim(1e-20, 1)
+    ax.legend(label=['S5','S6','S7','P'], loc='best')
+    fig.show()
+
+
+elif pyruvate == 'infinite':
         
-        
-        fig, ax = plt.subplots(2)
-        for j = 1:4
-        loglog(T,Y(:,j + 4),'Color',Col_l(j,:),'LineWidth',3)
-        hold on
-        end
-        
-        for j = 1:4
-        plt.plot(T,S(:,j + 4),'--','Color',Col_d(j,:),'LineWidth',3)
-        end
-        
-        axis([1e-5 Tmax 1e-20 1])
-        plt.legend('S5','S6','S7','P')
-        
-        
-    case 'infinite'
-        
-        
-        fig, ax = plt.subplots(1)
-        for j = 1:4
-        loglog(T,Y(:,j),'Color',Col_l(j,:),'LineWidth',3)
-        hold on
-        end
-        
-        for j = 1:4
-        plt.plot(T,S(:,j),'--','Color',Col_d(j,:),'LineWidth',3)
-        end
-        
-        
-        axis([1e-2 Tmax 1e-10 1e2])
-        plt.legend('S1','S2','S3','S4')
-        
-        fig, ax = plt.subplots(2)
-        for j = 1:4
-        loglog(T,Y(:,j + 4),'Color',Col_l(j,:),'LineWidth',3)
-        hold on
-        end
-        
-        for j = 1:4
-        plt.plot(T,S(:,j + 4),'--','Color',Col_d(j,:),'LineWidth',3)
-        end
-        axis([1e-2 Tmax 1e-10 1e2])
-        plt.legend('S5','S6','S7','P')
-        
-        
-    otherwise
-        error('Unexpected type. Cannot proceed')
-end
-​
-​
-​
+    fig, ax = plt.subplots()
+    for j in range(4):
+        ax.plot(T,Y[:,j], color=Col_l[j,:],linewidth=3)
+        ax.plot(T,S[:,j],'--', color=Col_d[j,:],linewidth=3)
+    
+    ax.set_xlim(1e-2, Tmax)
+    ax.set_ylim(1e-10, 1e2)
+    ax.legend(label=['S1','S2','S3','S4'], loc='best')
+    fig.show()
+
+    fig, ax = plt.subplots()
+    for j in range(4):
+        ax.plot(T,Y[:,j + 4], color=Col_l[j,:],linewidth=3)
+        ax.plot(T,S[:,j + 4],'--', color=Col_d[j,:],linewidth=3)
+
+    ax.set_xlim(1e-2, Tmax)
+    ax.set_ylim(1e-10, 1e2)
+    plt.legend(label=['S5','S6','S7','P'], loc='best')
+    fig.show()
+else:
+    raise TypeError
+
+
 # switch pyruvate
 #     case 'finite'
 #         J_tot = 2
@@ -107,20 +95,21 @@ end
 
 type = 'dim'
 
-for j = 1:2
-    fig, ax = plt.subplots(j)
-switch type
-    case 'dim'
-        obj = xlabel('Time (s)') #set(obj,'Interpreter','LaTex')
-        obj = ylabel('Concentration (M)') #set(obj,'Interpreter','LaTex','Rotation',90)
-    case 'non-dim'
-        obj = xlabel('t')# set(obj,'Interpreter','LaTex')
-        obj = ylabel('Concentration') #set(obj,'Interpreter','LaTex','Rotation',90)
-    otherwise
-        error('Unexpected type. Cannot proceed')
-end
+for j in range(2):
+    fig, ax = plt.subplots()
+    if type == 'dim':
+            ax.set_xlabel('Time (s)') #set(obj,'Interpreter','LaTex')
+            ax.set_ylabel('Concentration (M)') #set(obj,'Interpreter','LaTex','Rotation',90)
+    elif type == 'non-dim':
+        ax.set_xlabel('t')# set(obj,'Interpreter','LaTex')
+        ax.set_ylabel('Concentration') #set(obj,'Interpreter','LaTex','Rotation',90)
+    else:
+        raise TypeError
+  
 
-set(gca,'FontSize',18)
-set(findall(gcf,'type','text'),'FontSize',18)
-set(gcf,'Color',[1,1,1])
-end
+# Original matlab plotting settings:
+# set(gca,'FontSize',18)
+# set(findall(gcf,'type','text'),'FontSize',18)
+# set(gcf, color=[1,1,1])
+
+plt.rcParams.update({'axes.titlesize': 'large'})
