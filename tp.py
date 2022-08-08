@@ -1,7 +1,15 @@
 import math
-import numpy as np
 
-def terpene_precursors(x: np.array, t: np.array) -> np.array:
+import numpy as np
+from scipy.integrate import solve_ivp
+
+#fill in with initial parameters of enzymes
+x_values = np.array([2,4,5,6,2,6,9,7,1,4,2,6,7,0,6,3,6,4,8,7,5,2,])
+#time values we want to specify for
+# first num is start time, second num is end time
+t_values = np.array([0,10])
+
+def terpene_precursors(t: np.array, x: np.array) -> np.array:
   #METABOLITE NOMENCLATURE
 
   #[GAP]=x[0]          D-Glyceraldehyde 3-Phosphate (G3P) 🚨
@@ -238,3 +246,7 @@ def terpene_precursors(x: np.array, t: np.array) -> np.array:
           GN*(kc17b*E17b*x[17]/(x[17]+KM17b))]                            # Variation of NIMol
           
   return xdot
+
+sol = solve_ivp(terpene_precursors,t_values,x_values)
+
+print(sol)
