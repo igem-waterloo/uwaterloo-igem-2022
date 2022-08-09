@@ -5,7 +5,7 @@ Created on Fri Jul 29 23:58:13 2022
 @author: rxche
 """
 
-import parameters as params
+import parameters as p
 import scipy
 import reaction_ODE as reaction_ode
 import time
@@ -24,7 +24,7 @@ def full_dynamics():
     pyruvate = "infinite"
     
     # Import parameters file
-    [k, y0, ep] = params
+    k, y0, ep = p.params()
     
     # k: reaction rate constant array
     # y0: metabollites array

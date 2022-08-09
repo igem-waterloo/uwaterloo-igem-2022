@@ -1,7 +1,7 @@
 # import NumPy package
 import numpy as np
 
-def parameters:
+def params():
   # output the 32 parameters for the aspartate/beta alanine pathway (see 'parameters' sect of paper)
 
   # small dimensionless parameter epsilon
@@ -81,6 +81,6 @@ def parameters:
 
   k[8:18] = s_0 * k[8:18]
   
-  return k;
-  return y0;
-  return ep;
+  return k, y0, ep
+  
+
