@@ -80,3 +80,7 @@ def parameters:
   k[19] = 1
 
   k[8:18] = s_0 * k[8:18]
+  
+  return k;
+  return y0;
+  return ep;
