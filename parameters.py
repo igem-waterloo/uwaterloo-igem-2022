@@ -12,7 +12,7 @@ s_0 = 1e-3
 # initial conditions. first six are substrates, then the two reactants, then four enzymes and complexes
 # ordering is (S1,...S6,R1,R2,E1,C1,...,E4,C4,P)
 y0 = np.zeros((8, 1), dtype=float)
-y0[1] = s_0
+y0[0] = s_0
 
 # reaction rates (see table 2 of paper)
 k = np.zeros((20, 1), dtype=float)
@@ -78,13 +78,4 @@ k[18] = 0.2
 # A
 k[19] = 1
 
-# matlab code to convert: k(9:19) = s_0 * k(9:19) - check later
-k[9:19] = s_0 * k[9:19]
-
-
-
-
-
-
-
-
+k[8:18] = s_0 * k[8:18]
