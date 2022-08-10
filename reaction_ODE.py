@@ -6,7 +6,7 @@ Created on Sat Jul 23 17:26:31 2022
 """
 import numpy as np
 
-def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
+def reaction_ODE(t, y, k, s_0, ep, dim, pyruvate):
     """
     Function containing the ODEs to be solved 
 
@@ -112,4 +112,6 @@ def reaction_ODE(y, k, s_0, ep, dim, pyruvate):
     dy[5] = r5 - r6
     dy[6] = r6 - r7
     dy[7] = r7
+    
+    return dy
     

@@ -12,9 +12,9 @@ def params():
 
   # initial conditions. first six are substrates, then the two reactants, then four enzymes and complexes
   # ordering is (S1,...S6,R1,R2,E1,C1,...,E4,C4,P)
-  y0 = np.zeros((8, 1), dtype=float)
+  y0 = np.zeros(8, dtype=float)
   y0[0] = s_0
-
+  
   # reaction rates (see table 2 of paper)
   k = np.zeros((20, 1), dtype=float)
 
