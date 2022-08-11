@@ -1,5 +1,5 @@
 import math
-
+import time
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
@@ -247,11 +247,12 @@ def terpene_precursors(t: np.array, x: np.array) -> np.array:
           GN*(kc17b*E17b*x[17]/(x[17]+KM17b))]                            # Variation of NIMol
           
   return xdot
-
-sol = solve_ivp(terpene_precursors,[0, 5000],x_values, method='Radau')
+start_time = time.time()
+sol = solve_ivp(terpene_precursors,[0, 10],x_values, method='Radau')
 
 # print(sol)
 fig, ax = plt.subplots()
 ax.plot(sol.t, np.transpose(sol.y))
 fig.savefig('Terpene Precursors.png')
 plt.close('all')
+print('Time elapsed: ', time.time() - start_time)
