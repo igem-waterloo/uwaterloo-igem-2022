@@ -2,6 +2,7 @@ import math
 
 import numpy as np
 from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
 
 #fill in with initial parameters of enzymes
 x_values = np.array([2,4,5,6,2,6,9,7,1,4,2,6,7,0,6,3,6,4,8,7,5,2,])
@@ -247,6 +248,10 @@ def terpene_precursors(t: np.array, x: np.array) -> np.array:
           
   return xdot
 
-sol = solve_ivp(terpene_precursors,t_values,x_values)
+sol = solve_ivp(terpene_precursors,[0, 5000],x_values, method='Radau')
 
-print(sol)
+# print(sol)
+fig, ax = plt.subplots()
+ax.plot(sol.t, np.transpose(sol.y))
+fig.savefig('Terpene Precursors.png')
+plt.close('all')
