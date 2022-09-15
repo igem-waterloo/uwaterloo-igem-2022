@@ -6,7 +6,7 @@ Created on Fri Jul 29 23:58:13 2022
 """
 from cProfile import label
 import numpy as np
-import parameters as p
+import terpene_pathway_model.mevalonate_pathway.parameters as p
 import scipy.integrate
 from scipy.integrate import solve_ivp
 # import reaction_ODE as reaction_ode
@@ -123,7 +123,7 @@ def reaction_ode(t, y, k, s_0, ep, dim, pyruvate):
     
     return dy
 
-def full_dynamics():
+def full_dynamics(inital_condtions=None):
     """
     Main function to solve the system of ODE's for determining
     IDP concentration
@@ -137,6 +137,8 @@ def full_dynamics():
     
     # Import parameters file
     k, y0, ep = p.params()
+    y0 = inital_condtions if inital_condtions is not None else y0
+    print(y0)
     
     # k: reaction rate constant array
     # y0: metabollites array
@@ -165,6 +167,7 @@ def full_dynamics():
     print(f"Elapsed time: {elapsed}")
     return T, Y, k, ep, pyruvate, Tmax
 
+"""
 T, Y, k, ep, pyruvate, Tmax = full_dynamics()
 
 # testing that we get results that somewhat make sense
@@ -175,3 +178,4 @@ plt.legend(labels=['Pyruvate', 'Acetyl CoA', 'Acetoacetyl CoA',  'HMG CoA', 'Mev
 ,'Mevalonate-phosphate','Mevalonate diphosphate','Isopentyl diphosphate'])
 fig.savefig(pyruvate+'.png')
 plt.close('all')
+"""
