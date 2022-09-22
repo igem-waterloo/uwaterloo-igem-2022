@@ -1,7 +1,7 @@
 from mevalonate_pathway.full_dynamics import full_dynamics as MVA
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import solve_ivp
+from scipy.integrate import solve_ivp 
 from terpene_pathway_model.terpene_precursors.tp import terpene_precursors
 
 

@@ -4,14 +4,15 @@ Created on Fri Jul 29 23:58:13 2022
 
 @author: rxche
 """
-from cProfile import label
-import numpy as np
-import terpene_pathway_model.mevalonate_pathway.parameters as p
-import scipy.integrate
-from scipy.integrate import solve_ivp
 # import reaction_ODE as reaction_ode
 import time
+from cProfile import label
+
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.integrate
+import parameters as p
+from scipy.integrate import solve_ivp
 
 
 def reaction_ode(t, y, k, s_0, ep, dim, pyruvate):
