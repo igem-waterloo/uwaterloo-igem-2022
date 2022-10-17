@@ -43,9 +43,21 @@ def run_sans_acetyl_coa(acetyl_coa):
     x[1] = Y[0][-1]
     x[9] = Y[7][-1]
 
-    sol = solve_ivp(terpene_precursors,[0, 10], x, method='Radau')
+    sol = solve_ivp(terpene_precursors,[0, 4000], x, method='Radau')
     plt.plot(sol.t, np.transpose(sol.y))
+    plt.legend(
+        [
+            'GAP', 'Pyruvate', 'ME4P', 'CDP-ME', 'CDP-ME2P',
+            'MEcPP', 'HMB-PP', 'DMAPP', 'IPP', 'GPP',
+            'LIM', 'IPPol', 'IPPone', 'CIPUL', 'PUL',
+            'MF', 'IMone', 'Mone', 'NMol', 'Mol',
+            'IMol', 'NIMol'
+        ]
+    )
+    plt.title("Terpene Pathway Model Concentration vs Time")
+    plt.ylabel("Concentration (M)")
+    plt.xlabel("Time (Seconds)")
     plt.show()
 
 
-run_sans_acetyl_coa(0)
+run_sans_acetyl_coa(0.1)
